@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summit Notes — A Hiking Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Tokens ────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:   #1C3A1C;
+      --terra:    #E8622A;
+      --terra-dk: #B34A1C;
+      --ink:      #1A1A18;
+      --muted:    #6B7060;
+      --warm-bg:  #FAFAF7;
+      --card-bg:  #F0EBE0;
+      --border:   #D8D3C6;
+      --white:    #FFFFFF;
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body:    'Source Sans 3', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--warm-bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── 1. NAVIGATION MENU ────────────────────── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--forest);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+      border-bottom: 3px solid var(--terra);
+    }
+
+    .site-nav .brand {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-family: var(--ff-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+      border-bottom-color: var(--terra);
+    }
+
+    /* ── 2. HERO — Heading, Paragraph & Image ─── */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+
+    /* Overlay: dark gradient from bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10, 22, 10, 0.88) 0%,
+        rgba(10, 22, 10, 0.45) 55%,
+        rgba(10, 22, 10, 0.15) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 2.5rem;
+      max-width: 720px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: var(--ff-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: #C8E6B2; /* soft leaf-green */
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.82);
+      max-width: 540px;
+      line-height: 1.75;
+    }
+
+    /* ── Section shared ────────────────────────── */
+    section {
+      padding: 5rem 2.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin-bottom: 2rem;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── 3. FORM ───────────────────────────────── */
+    .subscribe-section {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2.5rem;
+    }
+
+    .subscribe-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .subscribe-copy .section-title { margin-bottom: 0.75rem; }
+
+    .subscribe-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--forest);
+    }
+
+    .form-group input[type="email"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: var(--ff-body);
+      font-size: 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      background: var(--white);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input[type="email"]::placeholder {
+      color: #A8A49A;
+    }
+
+    .form-group input[type="email"]:focus {
+      border-color: var(--terra);
+      box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.15);
+    }
+
+    .btn-submit {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: var(--terra);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover { background: var(--terra-dk); }
+    .btn-submit:active { transform: scale(0.98); }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── Footer ────────────────────────────────── */
+    footer {
+      background: var(--forest);
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 1.75rem 2rem;
+      font-size: 0.85rem;
+    }
+
+    footer span { color: var(--terra); }
+
+    /* ── Responsive ────────────────────────────── */
+    @media (max-width: 660px) {
+      .site-nav { padding: 0 1.25rem; }
+      .hero-content { padding: 2rem 1.25rem; }
+      section { padding: 3rem 1.25rem; }
+      .subscribe-section { padding: 3rem 1.25rem; }
+      .subscribe-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ★ Component 3: Navigation Menu with Three Links -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="#" class="brand">Summit Notes</a>
+    <ul class="nav-links">
+      <li><a href="#trails" class="active">Trails</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#subscribe">Subscribe</a></li>
+    </ul>
+  </nav>
+
+  <!-- ★ Component 2: Heading, Paragraph & Image -->
+  <section class="hero" id="trails">
+    <img
+      class="hero-img"
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80"
+      alt="Misty mountain peaks rising above the clouds at sunrise"
+    />
+    <div class="hero-content">
+      <span class="hero-eyebrow">Est. 2024 · Field Notes</span>
+      <h1>Where the <em>silence</em><br>speaks loudest</h1>
+      <p>
+        Summit Notes is a personal journal of trails walked, peaks reached, and
+        lessons learned one altitude metre at a time. From rocky ridgelines to
+        mist-covered valleys — every path has a story worth telling.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- About blurb to give the page body -->
+  <section id="journal">
+    <p class="section-label">About the Journal</p>
+    <h2 class="section-title">Why we hike</h2>
+    <p class="section-body">
+      There is something irreplaceable about moving through wild landscape on foot.
+      No engine, no signal, no agenda — just the crunch of gravel underboot and
+      the slow reward of elevation gained. This journal collects those moments:
+      the route notes, the wrong turns, and the views that make every blister
+      entirely worth it.
+    </p>
+    <p class="section-body">
+      Whether you are a weekend wanderer or a seasoned thru-hiker, you will find
+      honest trail accounts, practical gear notes, and the occasional recipe for
+      a summit sandwich.
+    </p>
+  </section>
+
+  <!-- ★ Component 1: Form with Input Field & Submit Button -->
+  <div class="subscribe-section" id="subscribe">
+    <div class="subscribe-inner">
+      <div class="subscribe-copy">
+        <p class="section-label">Trail Dispatch</p>
+        <h2 class="section-title">New trail notes,<br>straight to your inbox</h2>
+        <p class="section-body">
+          One email per month. No fluff — just the best route from the past four
+          weeks and what you need to know before you lace up.
+        </p>
+      </div>
+
+      <form class="subscribe-form" action="#" method="post" novalidate>
+        <div class="form-group">
+          <label for="email">Your email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Join the Dispatch →
+        </button>
+
+        <p class="form-note">No spam. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2024 Summit Notes &nbsp;·&nbsp; Made with <span>♥</span> and trail mix</p>
+  </footer>
+
+</body>
+</html>
