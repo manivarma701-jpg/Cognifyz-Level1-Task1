@@ -280,6 +280,14 @@
       color: var(--muted);
     }
 
+    .form-note.is-success { color: var(--forest); font-weight: 600; }
+    .form-note.is-error   { color: var(--terra-dk); font-weight: 600; }
+
+    .form-group input[type="email"].is-invalid {
+      border-color: var(--terra-dk);
+      box-shadow: 0 0 0 3px rgba(179, 74, 28, 0.15);
+    }
+
     /* ── Footer ────────────────────────────────── */
     footer {
       background: var(--forest);
@@ -381,7 +389,7 @@
           Join the Dispatch →
         </button>
 
-        <p class="form-note">No spam. Unsubscribe anytime.</p>
+        <p class="form-note" id="formNote" role="status" aria-live="polite">No spam. Unsubscribe anytime.</p>
       </form>
     </div>
   </div>
@@ -389,6 +397,46 @@
   <footer>
     <p>© 2024 Summit Notes &nbsp;·&nbsp; Made with <span>♥</span> and trail mix</p>
   </footer>
+
+  <script>
+    (function () {
+      const form  = document.querySelector('.subscribe-form');
+      const email = document.getElementById('email');
+      const note  = document.getElementById('formNote');
+      const DEFAULT_NOTE = note.textContent;
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const value = email.value.trim();
+
+        if (value === '' || !email.checkValidity()) {
+          email.classList.add('is-invalid');
+          note.textContent = 'Please enter a valid email address.';
+          note.className = 'form-note is-error';
+          email.focus();
+          return;
+        }
+
+        email.classList.remove('is-invalid');
+        note.textContent = 'Thanks! You\u2019re on the list — trail notes incoming.';
+        note.className = 'form-note is-success';
+        form.reset();
+
+        setTimeout(function () {
+          note.textContent = DEFAULT_NOTE;
+          note.className = 'form-note';
+        }, 5000);
+      });
+
+      email.addEventListener('input', function () {
+        if (email.classList.contains('is-invalid')) {
+          email.classList.remove('is-invalid');
+          note.textContent = DEFAULT_NOTE;
+          note.className = 'form-note';
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
