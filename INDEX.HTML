@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cognifyz - Where Data Meets Intelligence</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #2d2d2d;
+    line-height: 1.6;
+  }
+
+  /* ===== Navigation Menu ===== */
+  nav {
+    background-color: #1f2937;
+    padding: 1rem 2rem;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    background-color: #4f46e5;
+  }
+
+  /* ===== Main Content ===== */
+  main {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+  }
+
+  section {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  h1 {
+    color: #1f2937;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    color: #4f46e5;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: #4b5563;
+  }
+
+  img {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 1rem auto 0;
+    border-radius: 8px;
+  }
+
+  /* ===== Form ===== */
+  form {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.7rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #4f46e5;
+  }
+
+  button {
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #4338ca;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Task 3: Navigation Menu -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- Task 1: Heading, Paragraph, Image -->
+    <section id="home">
+      <h1>Cognifyz: Where Data Meets Intelligence</h1>
+      <p>
+        Welcome to Cognifyz Technologies. We turn raw data into meaningful
+        insights through the power of analytics, machine learning, and
+        intelligent design. This page demonstrates fundamental HTML and CSS
+        concepts including headings, paragraphs, images, forms, and
+        navigation menus.
+      </p>
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="Data and intelligence concept">
+    </section>
+
+    <!-- Task 2: Simple Form -->
+    <section id="contact">
+      <h2>Stay Updated</h2>
+      <p>Enter your email below to subscribe to our newsletter.</p>
+      <form action="#" method="post">
+        <input type="text" name="email" placeholder="Enter your email address" required>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Cognifyz Technologies. All rights reserved.
+  </footer>
+
+</body>
+</html>
